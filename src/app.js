@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
+const authRoutes = require("./routes/auth.routes"); // 👈 ADD THIS
+
 const app = express();
 
 // middlewares
@@ -14,4 +16,12 @@ app.get("/", (req, res) => {
   res.send("Server running 🚀");
 });
 
-module.exports = app;   
+
+app.use("/api/auth", authRoutes);
+
+// 404 handler 
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+module.exports = app;
