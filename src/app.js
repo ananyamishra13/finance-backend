@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const authRoutes = require("./routes/auth.routes"); // 👈 ADD THIS
+const authRoutes = require("./routes/auth.routes");
+const recordRoutes = require("./routes/record.routes"); // 👈 MOVE HERE
 
 const app = express();
 
@@ -16,10 +17,11 @@ app.get("/", (req, res) => {
   res.send("Server running 🚀");
 });
 
-
+// routes
 app.use("/api/auth", authRoutes);
+app.use("/api/records", recordRoutes); // 👈 MOVE HERE
 
-// 404 handler 
+// 404 handler
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
