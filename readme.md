@@ -54,8 +54,8 @@ Built using Node.js, Express, MongoDB, and JWT authentication.
 - bcryptjs
 
 ---
+##Project Structure
 
-## 📁 Project Structure
 src/
 │
 ├── controllers/
@@ -81,7 +81,6 @@ src/
 │
 ├── app.js
 └── index.js
-
 ---
 
 ## ⚙️ Setup Instructions
