@@ -208,6 +208,43 @@ const getCategorySummary = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+const getMonthlyTrends = async (req, res) => {
+  try {
+    const trends = await FinancialRecord.aggregate([
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(req.user._id),
+        },
+      },
+      {
+        $group: {
+          _id: {
+            year: { $year: "$date" },
+            month: { $month: "$date" },
+          },
+          totalIncome: {
+            $sum: {
+              $cond: [{ $eq: ["$type", "income"] }, "$amount", 0],
+            },
+          },
+          totalExpense: {
+            $sum: {
+              $cond: [{ $eq: ["$type", "expense"] }, "$amount", 0],
+            },
+          },
+        },
+      },
+      { $sort: { "_id.year": 1, "_id.month": 1 } },
+    ]);
+
+    res.status(200).json({
+      success: true,
+      data: trends,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 module.exports = {
   addFinancialRecord,
@@ -216,4 +253,5 @@ module.exports = {
   deleteFinancialRecord,
   getFinancialSummary,
   getCategorySummary,
+  getMonthlyTrends,
 };
