@@ -36,26 +36,40 @@ const addFinancialRecord = async (req, res) => {
 // ================= GET ALL + FILTER =================
 const getAllFinancialRecords = async (req, res) => {
   try {
-    const { type, category, startDate, endDate } = req.query;
+    const { type, category, startDate, endDate, page, limit } = req.query;
 
     const query = { user: req.user._id };
 
+    // filtering
     if (type) query.type = type;
     if (category) {
       query.category = { $regex: category, $options: "i" };
     }
-
     if (startDate || endDate) {
       query.date = {};
       if (startDate) query.date.$gte = new Date(startDate);
       if (endDate) query.date.$lte = new Date(endDate);
     }
 
-    const records = await FinancialRecord.find(query).sort({ date: -1 });
+    // pagination
+    const pageNumber = parseInt(page) || 1;
+    const pageLimit = parseInt(limit) || 10;
+    const skip = (pageNumber - 1) * pageLimit;
+
+    const totalRecords = await FinancialRecord.countDocuments(query);
+    const totalPages = Math.ceil(totalRecords / pageLimit);
+
+    const records = await FinancialRecord.find(query)
+      .sort({ date: -1 })
+      .skip(skip)
+      .limit(pageLimit);
 
     res.status(200).json({
       success: true,
       count: records.length,
+      totalRecords,
+      totalPages,
+      currentPage: pageNumber,
       data: records,
     });
 
