@@ -233,7 +233,7 @@ Use Thunder Client or Postman:
 🔹 User Registration
 ![Register Screenshot](./ss1.png)
 🔹 User Login (JWT Token)
-![Login Screenshot](./ss1.png)
+![Login Screenshot](./ss2.png)
 
 
 
