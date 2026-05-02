@@ -4,6 +4,18 @@ A secure, role-based backend system for managing personal financial records.
 Built using Node.js, Express, MongoDB, and JWT authentication.
 
 ---
+# 🌐 Live Demo
+👉 Base URL (Render Deployment):
+https://finance-backend-1-ieir.onrender.com
+
+Example:
+
+Register → /api/auth/register
+
+Login → /api/auth/login
+
+---
+
 
 ## 🚀 Features
 
@@ -217,6 +229,17 @@ Use Thunder Client or Postman:
 4. Test protected routes
 
 ---
+# 🧪 API Demo Screenshots
+🔹 User Registration
+![Register Screenshot](./ss1.png)
+🔹 User Login (JWT Token)
+![Login Screenshot](./ss1.png)
+
+
+
+---
+
+
 
 ## 🧠 Key Concepts Implemented
 
