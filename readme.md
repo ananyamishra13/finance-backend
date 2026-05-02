@@ -137,7 +137,7 @@ node src/index.js
 ```
 
 Server runs on:
-http://localhost:5000
+https://finance-backend-1-ieir.onrender.com
 
 ---
 
